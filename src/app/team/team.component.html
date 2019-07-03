@@ -1,0 +1,6 @@
+<h4>Team {{team.color}}</h4>
+<ul>
+  <li *ngFor="let player of team.players">
+    <app-player [player]="player" [showPosition]="team.players.length > 1"></app-player>
+  </li>
+</ul>

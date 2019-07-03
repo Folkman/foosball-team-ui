@@ -1,0 +1,38 @@
+<div class="grid-x grid-padding-x">
+  <fieldset class="cell">
+    <legend>How Many Players?</legend>
+    <ng-container *ngFor="let count of [['two', 2], ['four', 4]]">
+      <input
+        type="radio"
+        [value]="count[1]"
+        id="{{count[0]}}-players"
+        [(ngModel)]="playerCount"
+        (ngModelChange)="generating = true"
+      >
+      <label for="{{count[0]}}-players">{{count[0] | titlecase}} Players</label>
+    </ng-container>
+  </fieldset>
+</div>
+
+<div *ngIf="playerCount" class="grid-x grid-padding-x">
+  <div class="cell">
+    <ul>
+      <li *ngFor="let player of players.slice(0, playerCount); let i = index">
+        <label>
+          Player {{i + 1}}
+          <input type="text" [(ngModel)]="player.name" required>
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <div class="cell">
+    <button class="button" (click)="generate()" [disabled]="invalid">Generate Teams</button>
+  </div>
+</div>
+
+<div *ngIf="!generating" class="grid-x grid-padding-x">
+  <div class="cell medium-6" *ngFor="let team of teams">
+    <app-team [team]="team"></app-team>
+  </div>
+</div>
